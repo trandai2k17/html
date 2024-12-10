@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FTP File Manager</title>
+    <link rel="stylesheet" href="../assets/css/styles.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>FTP File Manager</h1>
+        <div class="folder-list">
+            <button class="folder" data-folder="backup">Backup</button>
+            <button class="folder" data-folder="file-scan-1">File Scan 1</button>
+            <button class="folder" data-folder="file-scan-2">File Scan 2</button>
+            <button class="folder" data-folder="file-scan-3">File Scan 3</button>
+        </div>
+        <div class="subfolder-list" id="subfolder-list">
+            <!-- Subfolders will be dynamically added here -->
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.folder').forEach(folder => {
+            folder.addEventListener('click', () => {
+                const folderName = folder.getAttribute('data-folder');
+                const subfolderList = document.getElementById('subfolder-list');
+                subfolderList.innerHTML = ''; // Clear previous subfolders
+
+                if (folderName === 'backup' || folderName === 'file-scan-1' || folderName === 'file-scan-2') {
+                    const dateFolders = ['2023-10-01', '2023-10-02', '2023-10-03'];
+                    dateFolders.forEach(date => {
+                        const dateFolder = document.createElement('div');
+                        dateFolder.className = 'subfolder';
+                        dateFolder.textContent = date;
+                        dateFolder.addEventListener('click', () => {
+                            subfolderList.innerHTML = ''; // Clear previous subfolders
+                            const caseFolders = ['CaseNo-00001', 'CaseNo-00002', 'CaseNo-00003'];
+                            caseFolders.forEach(caseFolder => {
+                                const caseFolderDiv = document.createElement('div');
+                                caseFolderDiv.className = 'subfolder';
+                                caseFolderDiv.textContent = caseFolder;
+                                subfolderList.appendChild(caseFolderDiv);
+                            });
+                        });
+                        subfolderList.appendChild(dateFolder);
+                    });
+                } else if (folderName === 'file-scan-3') {
+                    const caseFolders = ['CaseNo-00001', 'CaseNo-00002', 'CaseNo-00003'];
+                    caseFolders.forEach(caseFolder => {
+                        const caseFolderDiv = document.createElement('div');
+                        caseFolderDiv.className = 'subfolder';
+                        caseFolderDiv.textContent = caseFolder;
+                        subfolderList.appendChild(caseFolderDiv);
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
